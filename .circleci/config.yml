@@ -1,0 +1,58 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+
+    docker:
+      # specify the version you desire here
+      - image: circleci/php:7.1-apache-node-browsers
+
+      # Specify service dependencies here if necessary
+      # SEE: https://discuss.circleci.com/t/selenium-on-circle-ci-2/10910/5
+      - image: selenium/standalone-chrome:3.1.0
+        name: selenium-server
+
+    steps:
+      # Checkout from GitHub into the working directory
+      - checkout
+
+      - run:
+          name: Create logs folder
+          command: |
+            mkdir -p ~/logs
+          when: always
+
+      - run:
+          name: Install Composer (a PHP package manager)
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+
+      - run:
+          name: Install project dependencies
+          command: php composer.phar install
+
+      - run:
+          name: Display version information
+          command: |
+            php -v
+            vendor/bin/phpunit --version
+            php composer.phar --version
+
+      - run:
+          name: Run PHPUnit tests
+          command:
+            vendor/bin/phpunit --testdox --log-junit ~/logs/log.xml
+          when: always
+
+      - store_test_results:
+          path: ~/logs
+
+      - store_artifacts:
+          path: ~/logs

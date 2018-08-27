@@ -1,0 +1,8 @@
+# Ignore chromedriver (downloaded for local testing)
+chromedriver
+
+# Ignore Composer (downloaded for local testing)
+composer.phar
+
+# Ignore Composer generated files
+vendor/

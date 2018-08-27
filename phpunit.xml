@@ -1,0 +1,8 @@
+<phpunit bootstrap="tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Example">
+            <!-- by default PHPUnit considers everything with name ending with Test.php as being a test and ignores everything else -->
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
