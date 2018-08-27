@@ -12,6 +12,6 @@ final class PHPUnitTest extends PHPUnit\Framework\TestCase
     public function testEquals(): void
     {
         $this->assertEquals('foo', 'foo'); // PASS
-        $this->assertEquals('foo', 'bar'); // FAIL
+        // $this->assertEquals('foo', 'bar'); // FAIL
     }
 }

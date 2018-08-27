@@ -1,6 +1,8 @@
 # circle-ci-phpunit-webdriver-demo
 Minimum code needed to run Selenium WebDriver tests using PHPUnit with CircleCI 2.0.
 
+https://circleci.com/gh/balmerd/circleci-phpunit-webdriver-demo
+
 ## Steps for local testing
 
 * Download Selenium server
